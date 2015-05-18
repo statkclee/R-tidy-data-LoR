@@ -1,10 +1,12 @@
-This is a lesson on tidying data. Specifically, what to do when a conceptual variable is spread out over 2 or more variables in a data frame.
+이번 학습은 tidying data 즉, 데이터를 깔끔하게 만드는 학습이다. 구체적으로 개념적으로 변수들이 두개 혹은 그이상 데이터프레임 산재되었을 때 어떻게 할 것인지 다룬다.
 
-Data used: words spoken by characters of different races and gender in the Lord of the Rings movie trilogy
+실습 데이터: 반지의 제왕 3부작(Lord of the Rings)에서 사용된 다른 종족과 성별이 다른 등장인물이 대화에 사용한 단어다.
 
-  * [01-intro](01-intro.md) shows untidy and tidy data. Then we demonstrate how tidy data is more useful for analysis and visualization. Includes references, resources, and exercises.
-  * [02-tidy](02-tidy.md) shows __how__ to tidy data, using `gather()` from the `tidyr` package. Includes references, resources, and exercises.
-  * [03-tidy-bonus-content](03-tidy-bonus-content.md) is not part of the lesson but may be useful as learners try to apply the principles of tidy data in more general settings. Includes links to packages used.
+  * [소개](01-intro.md): 깔끔한 데이터와 깔끔하지 않은 데이터를 소개하고 나서, 깔끔한 데이터가 자료분석과 시각화에 얼마나 유용한지 시연한다. 참고문헌, 도움되는 자원, 실습이 포함된다.
+  * [데이터 깔끔이](02-tidy.md): `tidyr` 패키지에서 `gather()`를 사용해서데이터를 깔끔하게 만드는 __방법__을 학습한다. 참고문헌, 도움되는 자원, 실습이 포함된다.
+  * [데이터 깔끔이 1+1](03-tidy-bonus-content.md): 금번 학습에 꼭 포함된 부분은 아니지만, 좀더 일반적인 환경에서 깔끔한 데이터 원칙을 실무에 적용할 때 유용할 수 있다. 사용되는 패키지 링크가 포함된다.
+
+
 
 Learner-facing dependencies:
 

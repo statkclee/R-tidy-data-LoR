@@ -7,7 +7,11 @@ output:
     keep_md: TRUE
 ---
 
-<blockquote class="twitter-tweet" lang="en"><p>If I had one thing to tell biologists learning bioinformatics, it would be &quot;write code for humans, write data for computers&quot;.</p>&mdash; Vince Buffalo (@vsbuffalo) <a href="https://twitter.com/vsbuffalo/statuses/358699162679787521">July 20, 2013</a></blockquote>
+<blockquote class="twitter-tweet" lang="en"><p>만약 정보생물학(Bioinformatics)을 배우는 생물학자에게 한마디 말을 남긴다면,
+&quot;코드는 사람을 위해 작성하고, 데이터는 컴퓨터를 위해 작성하라.&quot;가 될 것이다. <br>
+If I had one thing to tell biologists learning bioinformatics, it would be write code for humans, write data for computers&quot;.</p>&mdash; Vince Buffalo (@vsbuffalo) <a href="https://twitter.com/vsbuffalo/statuses/358699162679787521">2013년, 7월 20일</a></blockquote>
+
+
 
 An important aspect of "writing data for computers" is to make your data __tidy__ (see White et al and Wickham in the Resources). There's an emerging consensus on key features of __tidy__ data:
 
