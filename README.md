@@ -1,29 +1,29 @@
 이번 학습은 tidying data 즉, 데이터를 깔끔하게 만드는 학습이다. 구체적으로 개념적으로 변수들이 두개 혹은 그이상 데이터프레임 산재되었을 때 어떻게 할 것인지 다룬다.
 
-실습 데이터: 반지의 제왕 3부작(Lord of the Rings)에서 사용된 다른 종족과 성별이 다른 등장인물이 대화에 사용한 단어다.
+### 실습 데이터
+반지의 제왕 3부작(Lord of the Rings)에서 사용된 다른 종족과 성별이 다른 등장인물이 대화에 사용한 단어다.
 
   * [소개](01-intro.md): 깔끔한 데이터와 깔끔하지 않은 데이터를 소개하고 나서, 깔끔한 데이터가 자료분석과 시각화에 얼마나 유용한지 시연한다. 참고문헌, 도움되는 자원, 실습이 포함된다.
   * [데이터 깔끔이](02-tidy.md): `tidyr` 패키지에서 `gather()`를 사용해서데이터를 깔끔하게 만드는 __방법__을 학습한다. 참고문헌, 도움되는 자원, 실습이 포함된다.
-  * [데이터 깔끔이 1+1](03-tidy-bonus-content.md): 금번 학습에 꼭 포함된 부분은 아니지만, 좀더 일반적인 환경에서 깔끔한 데이터 원칙을 실무에 적용할 때 유용할 수 있다. 사용되는 패키지 링크가 포함된다.
+  * [데이터 깔끔이 1+1 보너스](03-tidy-bonus-content.md): 금번 학습에 꼭 포함된 부분은 아니지만, 좀더 일반적인 환경에서 깔끔한 데이터 원칙을 실무에 적용할 때 유용할 수 있다. 사용되는 패키지 링크가 포함된다.
 
+### 학습자가 풀어야 하는 의존성:
 
+  * 데이터 카펜트리(Data Carpentry) `data` 디렉토리의 하위 디렉토리(`tidy-data`)에 있는 파일.
+  * `tidyr` 패키지 (true 의존성만)
+  * `ggplot2`는 시연목적으로 사용되지만, 꼭 중요한 것은 아니다.
+  * `dplyr`와 `reshape2`은 1+1 추가 보너스 콘텐츠다.
 
-Learner-facing dependencies:
+### 강사가 풀어야 되는 의존성:
 
-  * files in the `tidy-data` sub-directory of the Data Carpentry `data` directory
-  * `tidyr` package (only true dependency)
-  * `ggplot2` is used for illustration but is not mission critical 
-  * `dplyr` and `reshape2` are used in the bonus content
+  * `curl`을 사용해서 GitHub에서 실습으로 사용되는 반지의 제왕 데이터를 끄집어 내는 코드를 실행한다. `datacarpentry/data/tidy-data` 디렉토리에 파일이 포함되어 있다. 그래서 데이터 다운로드를 피할 수 있다.
+  * `Rmd`를 `md`와 `html`으로 변환하려면, `rmarkdown`, `knitr`, `xtable`이 필요하다.
 
-Instructor dependencies:
+### 추가로 가능한 것들
 
-  * `curl` if you execute the code to grab the Lord of the Rings data used in examples from GitHub. Note that the files are also included in the `datacarpentry/data/tidy-data` directory, so data download is avoidable.
-  * `rmarkdown`, `knitr`, and `xtable` if you want to compile the `Rmd` to `md` and `html`
+  * 여기서 제공하는 실습에 추가하거나 대신에 특정 전문분야 실습을 병행할 수도 있다. 빔프로젝터를 사용해서 강사가 반지의 제왕 데이터를 사용해서 기본원칙과 코드를 시연하고 나서 전혀 다른 데이터를 사용해서 학생들이 도전과제를 실습할 수 있다.
+  * 좀더 일반적인 데이터를 깔끔하게 하는 작업을 다룰 수도 있다. 예를 들어,
 
-Possible to do's
-
-  * Domain-specific exercises could be added instead of or in addition to the existing exercises. Instructor could show basic principles and code using the LOTR data via projector and then pose challenges for the students using completely different data.
-  * Cover more common data tidying tasks, such as:
-    - split a variable that contains values and units into two separate variables, e.g. `10 km_square` becomes `10` and `km_square`
-    - simple joins or merges of two data tables, e.g. add info on LOTR film duration or box office gross
-    - renaming variables, revaluing factors, etc. to make data more self-documenting
+    - 변수를 쪼개서 값과 단위를 표현하는 변수 두개를 생성한다. 예제로,`10 km_square` 변수가 `10`와 `km_square`이 된다.  
+    - 두 데이터테이블을 단순 병합 혹은 조인한다. 예제로, 반지의 제왕 상영시간 정보 혹은 총영화매출 정보를 추가한다. 
+    - 변수명을 바꾸거나 요인(factor)값도 바꾼다. 이유는 데이터 가독성을 높이는 자체-문서화(self-documentation)를 위해서다.

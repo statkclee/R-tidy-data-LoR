@@ -19,7 +19,7 @@ If I had one thing to tell biologists learning bioinformatics, it would be write
   * 각 칼럼(column, 열)이 변수다.
   * 각 행(row)은 관측점이다.
 
-예를 들어, 그림을 만드는데 고생을 하고 있다면, 잠시 멈추고 데이터가 __깔끔__한지에 대해서 심각히 생각하기 바란다. 깔끔하지 못한 것이 자료분석과 시각화에 있어서 종종 간과되는 고통의 원인이다.
+예를 들어, 그림을 만드는데 고생을 하고 있다면, 잠시 멈추고 데이터가 __깔끔__한지에 대해서 심각히 생각하기 바란다. 깔끔하지 못한 것이 자료분석과 시각화 작업을 수행하는데 있어 종종 간과되는 고통의 원인이다.
 
 
 ## 반지의 제왕 예제 
@@ -142,19 +142,24 @@ print(xtable(lotr_tidy, digits = 0), include.rownames = FALSE, type='html')
 
 ## 깔끔한 데이터 효익
 
-With the data in tidy form, it's natural to *get a computer* to do further summarization or to make a figure. This assumes you're using language that is "data-aware", which R certainly is. Let's answer the questions posed above.
+깔끔한 형식으로 표현된 데이터를 가지고, *컴퓨터*를 사용해서 고급요약 작업과 그래프를 그리는 것이 더욱 자연스럽다.
+R이 확실하는 잘하는 것이지만, "데이터를 자각(data-aware)"하는 언어를 사용하는 것을 이것이 가정하고 있이다.
+상기 질문에 대답을 해보자.
 
-#### What's the total number of words spoken by male hobbits?
+#### 남자 호빗이 말한 전체 단어 숫자는 얼마인가?
 
 ```{r}
 aggregate(Words ~ Race * Gender, data = lotr_tidy, FUN = sum)
 ```
 
-Now it takes just one line of code to compute the word total for both genders of all `Races` across all `Films`. The total number of words spoken by male hobbits is `r lotr_tidy %>% filter(Race == 'Hobbit' & Gender == 'Male') %>% summarize(sum(Words))`. It was important here to have all word counts in a single variable, within a data frame that also included variables for `Race` and `Gender`.
+모든 영화 `Films`를 통틀어, 모든 종족 `Races` 남성과 여성에 대한 전체 단어를 계산하는데 단지 코드가 한줄이면 충분하다.
+남자 호빗이 말한 전체 단어는 `r lotr_tidy %>% filter(Race == 'Hobbit' & Gender == 'Male') %>% summarize(sum(Words))`이다. 
+`Race`와 `Gender`에 대한 변수도 포함하는 데이터프레임 내부에 단일 변수로 모든 단어 갯수를 담는 것이 중요하다.
 
-#### Does a certain `Race` dominate a movie? Does the dominant `Race` differ across the movies?
 
-First, we sum across `Gender`, to obtain word counts for the different races by movie.
+#### 특정 종족(`Race`)이 영화를 주도하는가? 주도하는 종족(`Race`)이 영화마다 차이가 있는가?
+
+먼저, 영화마다 다른 종족에 대한 단어 갯수를 얻기 위해서, 성별(`Gender`)에 대해서 총합을 구한다.
 
 ```{r echo = FALSE, include = FALSE}
 (tmp <- lotr_tidy %>%
@@ -165,7 +170,8 @@ First, we sum across `Gender`, to obtain word counts for the different races by 
 ```{r}
 (by_race_film <- aggregate(Words ~ Race * Film, data = lotr_tidy, FUN = sum))
 ```
-We can stare hard at those numbers to answer the question. But even nicer is to depict the word counts we just computed in a barchart. 
+
+질문에 대답하기 위해서 숫자를 열심히 살펴본다. 하지만, 방금 계산한 단어 갯수를 막대그래프로 시각화하는 것이 더 낫다.
 
 ```{r barchart-lotr-words-by-film-race}
 library(ggplot2)
@@ -174,29 +180,35 @@ p + geom_bar(stat = "identity", position = "dodge") +
   coord_flip() + guides(fill = guide_legend(reverse=TRUE))
 ```
 
-`Hobbits` are featured heavily in The Fellowhip of the Ring, where as `Men` had a lot more screen time in The Two Towers. They were equally prominent in the last movie, The Return of the King.
+호빗(`Hobbits`)이 '반지 원정대'에서 가장 많이 부각되었으며, 반면에 인간(`Men`)은 '두개의 탑'에서 더 많은 상영시간을 차지했다.
+마지막 영화, '왕의 귀환'에서 거의 동일하게 부각되었다.
 
-Again, it was important to have all the data in a single data frame, all word counts in a single variable, and associated variables for `Film` and `Race`.
+다시 한번, 모든 데이터를 변수 하나에 모든 단어 갯수정보와 `Film`과 `Race`와 연관되게 단일 데이터프레임으로 정리하는 것이 중요하다.
 
-## Take home message
+## 기억해야 할 사항
 
-Having the data in __tidy__ form was a key enabler for our data aggregations and visualization.
+데이터를 __깔끔한__ 형식으로 준비하는 것이 데이터 집계와 시각화에 핵심 요소(key enabler)다.
 
-Tidy data is integral to efficient data analysis and visualization.
+깔끔한 데이터가 효과적인 데이터 분석과 시각화에 필요불가결하다.
 
-If you're skeptical about any of the above claims, it would be interesting to get the requested word counts, the barchart, or the insight gained from the chart *without* tidying or plotting the data. And imagine redoing all of that on the full dataset, which includes 3 more `Races`, e.g. `Dwarves`.
+상기 주장에 대해서 회의적이라면, 데이터를 깔끔하게 하지 않거나 데이터를 플롯하지 말고 그래프 차트에서 인사이트를, 단어 갯수를,  혹은 막대그래프를 그려보는 것이 흥미로울 것이다.
+3개 이상 종족(`Races`), 예를 들어 `Dwarves`를 포함하는 전체 데이터셋으로 이 모든 작업을 재수행하는 것을 상상해보라.
 
-### Where to next?
 
-In [the next lesson](02-tidy.md), we'll show how to tidy this data.
+### 다음 학습
 
-Our summing over `Gender` to get word counts for `Film * Race` was an example of __data aggregation__. The base function `aggregate()` does simple aggregation. For more flexibility, check out the packages `plyr` and `dplyr`. *point to other lessons when/if they exist?*
+[다음 학습](02-tidy.md)에서, 데이터를 깔끔하게 만드는 방법을 시연한다.
 
-The figure was made with `ggplot2`, a popular package that implements the Grammar of Graphics in R.
+__데이터 집합(data aggregation)__ 예제로 `Film * Race`에 대한 단어 갯수를 계산하는데 `Gender`에 대해 합산했다.
+기초 함수 `aggregate()`는 단순한 집합(aggregation)을 수행한다.
+좀더 유연하게 작업하려면, `plyr`와 `dplyr` 팩키지를 확인하고, *만약 존재하거나 있다면, 다른 학습교재를 알려준다.*
 
-### Resources
+상기 그래프는 `ggplot2`로 생성되었는데, `ggplot2`는 `그래픽 문법(Grammar of Graphics)`를 R로 구현한 대중적인 팩키지다.
 
-  * [Bad Data Handbook](http://shop.oreilly.com/product/0636920024422.do) by By Q. Ethan McCallum, published by O'Reilly.
+
+### 도움이 되는 자원(Resources)
+
+  * [Bad Data Handbook](http://shop.oreilly.com/product/0636920024422.do) Q. Ethan McCallum, O'Reilly 출판사.
     - Chapter 3: Data Intended for Human Consumption, Not Machine Consumption by Paul Murrell.
   * Nine simple ways to make it easier to (re)use your data by EP White, E Baldridge, ZT Brym, KJ Locey, DJ McGlinn, SR Supp. *Ideas in Ecology and Evolution* 6(2): 1–10, 2013. doi:10.4033/iee.2013.6b.6.f <http://library.queensu.ca/ojs/index.php/IEE/article/view/4608>
     - See the section "Use standard table formats"
