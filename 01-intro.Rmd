@@ -12,17 +12,19 @@ output:
 If I had one thing to tell biologists learning bioinformatics, it would be write code for humans, write data for computers&quot;.</p>&mdash; Vince Buffalo (@vsbuffalo) <a href="https://twitter.com/vsbuffalo/statuses/358699162679787521">2013년, 7월 20일</a></blockquote>
 
 
+"코드는 사람을 위해 작성한다"의 중요한 측면은
+데이터를 __깔끔__하게 만드는 것이다. (White et al 와 Wickham 참조) __깔끔__한 데이터에 대한 주요 기능(key feature)에 대한 합의가 이뤄지고 있다.
 
-An important aspect of "writing data for computers" is to make your data __tidy__ (see White et al and Wickham in the Resources). There's an emerging consensus on key features of __tidy__ data:
 
-  * Each column is a variable
-  * Each row is an observation
+  * 각 칼럼(column, 열)이 변수다.
+  * 각 행(row)은 관측점이다.
 
-If you are struggling to make a figure, for example, stop and think hard about whether your data is __tidy__. Untidiness is a common, often overlooked cause of agony in data analysis and visualization.
+예를 들어, 그림을 만드는데 고생을 하고 있다면, 잠시 멈추고 데이터가 __깔끔__한지에 대해서 심각히 생각하기 바란다. 깔끔하지 못한 것이 자료분석과 시각화에 있어서 종종 간과되는 고통의 원인이다.
 
-## Lord of the Rings example
 
-I will give you a concrete example of some untidy data I created from [this data from the Lord of the Rings Trilogy](https://github.com/jennybc/lotr).
+## 반지의 제왕 예제 
+
+[반지의 제왕 3부작에서 나온 데이터](https://github.com/jennybc/lotr)에서 생성한 깔끔하지 못한 데이터의 확실한 예제가 제시된다.
 
 ```{r make-tidy-data-untidy, include = FALSE}
 library(knitr)
@@ -106,32 +108,39 @@ print(xtable(make_untidy_table("The Return Of The King"),
 </tr>
 </table>
 
-We have one table per movie. In each table, we have the total number of words spoken, by characters of different races and genders.
+각 영화마다 테이블이 한개 있다.
+각 테이블에 등장인물 종족과 성별로 전체 대사 단어 숫자가 나타나 있다.
 
-You could imagine finding these three tables as separate worksheets in an Excel workbook. Or hanging out in some cells on the side of a worksheet that contains the underlying data raw data. Or as tables on a webpage or in a Word document.
+상기 테이블 세개를 엑셀 워크북(workbook)에 별도 워크쉬트(worksheet)로 상상할 수 있다. 혹은,
+원천 데이터를 담고 있는 워크쉬트 귀퉁이 자리잡고 있을 수도 있다. 혹은 워드 프로세서나 웹페이지의 테이블로 생각할 수도 있다.  
 
-This data has been formatted for consumption by *human eyeballs* (paraphrasing Murrell; see Resources). The format makes it easy for a *human* to look up the number of words spoken by female elves in The Two Towers. But this format actually makes it pretty hard for a *computer* to pull out such counts and, more importantly, to compute on them or graph them.
+상기 데이터는 *사람 눈알(human eyeballs)* 소비를 위한 형식으로 준비되었다(Murrell의 말을 바꾸어 표현). 예컨데, *사람*이 두개의 탑에서 여성요정이 말한 단어 숫자를 찾기에 적합한 형식이다. 하지만, 실제로 이 형식에서 *컴퓨터*가 그런 갯수 정보를 추출하기는 매우 어렵다. 더 중요하게는 갯수를 계산하거나 그래프를 그리는 것은 정말 어렵다.
 
-## Exercises
+## 연습과제
 
-Look at the tables above and answer these questions:
+상기 테이블을 살펴보고 다음 질문에 답하라.
 
-  * What's the total number of words spoken by male hobbits?
-  * Does a certain `Race` dominate a movie? Does the dominant `Race` differ across the movies?
-  
-How well does your approach scale if there were many more movies or if I provided you with updated data that includes all the `Races` (e.g. dwarves, orcs, etc.)?
 
-## Tidy Lord of the Rings data
+  * 남자 호빗이 말한 총 단어 숫자는 얼마인가?
+  * 특정 `종족(Race)`가 영화를 지배하고 있는가?   지배 `종족(Race)`이 영화별로 차이가 있는가?
 
-Here's how the same data looks in tidy form:
+만약 더 많은 영화가 있다면, 혹은 만약 모든 `종족(Races)`(예를 들어, 난장이, 오크 등)을 포함한 갱신 데이터를 제공한다면, 여러분의 접근법은 확장성(Scale)이 얼마나 있을까요? 
+
+## 깔끔한 반지의 제왕 데이터
+
+다음에 동일한 데이터가 깔끔한 형식으로 표현되면 어떤 모양일지가 나타나 있다.
 
 ```{r echo = FALSE, results = 'asis'}
 print(xtable(lotr_tidy, digits = 0), include.rownames = FALSE, type='html')
 ```
+일반적으로 깔끔한 데이터는 좀더 좁고, 키가 크다.
+페이지에 멋지게 맞지는 않는다. 
+특정 요소는 반복이 심하다. 예를 들어, `Hobbit`.
+본증적으로 __깔끔한__ 데이터를 효율적이지 못하고 때로는 추하다고 생각해서 종종 배척한다.
+하지만, 데이터를 가지고 텍스트 표현하는 최종 제품을 만들지 않거나 만들 때까지는 데이터를 꼭 맞는 간결한 형식으로 보려는 갈망은 무시해라.
 
-Notice that tidy data is generally taller and narrower. It doesn't fit nicely on the page. Certain elements get repeated alot, e.g. `Hobbit`. For these reasons, we often instinctively resist __tidy__ data as inefficient or ugly. But, unless and until you're making the final product for a textual presentation of data, ignore your yearning to see the data in a compact form.
 
-## Benefits of tidy data
+## 깔끔한 데이터 효익
 
 With the data in tidy form, it's natural to *get a computer* to do further summarization or to make a figure. This assumes you're using language that is "data-aware", which R certainly is. Let's answer the questions posed above.
 
